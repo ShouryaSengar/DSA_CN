@@ -2,6 +2,24 @@
 #include "TreeNode.h"
 using namespace std;
 
+TreeNode<int> *takeInput()
+{
+    // ! Taking input the tough way (Recurive)
+    int rootData;
+    cout << "Enter data :)" << endl;
+    cin >> rootData;
+    TreeNode<int> *root = new TreeNode<int>(rootData);
+
+    int n;
+    cout << "Enter number of children of " << rootData << endl;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        TreeNode<int> *child = takeInput();
+        root->children.push_back(child);
+    }
+    return root;
+}
 void printTree(TreeNode<int> *root)
 {
     if (root == NULL) // Edge Case not a Base Case
@@ -28,11 +46,12 @@ void printTree(TreeNode<int> *root)
 
 int main()
 {
-    TreeNode<int> *root = new TreeNode<int>(1);
-    TreeNode<int> *child1 = new TreeNode<int>(2);
-    TreeNode<int> *child2 = new TreeNode<int>(3);
-    root->children.push_back(child1);
-    root->children.push_back(child2);
+    // TreeNode<int> *root = new TreeNode<int>(1);
+    // TreeNode<int> *child1 = new TreeNode<int>(2);
+    // TreeNode<int> *child2 = new TreeNode<int>(3);
+    // root->children.push_back(child1);
+    // root->children.push_back(child2);
+    TreeNode<int> *root = takeInput();
     printTree(root);
     // TODO: delete the tree
 }
