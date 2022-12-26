@@ -32,7 +32,32 @@ TreeNode<int> *takeInputLevelWise() // Easy for user to pass input
     }
     return root;
 }
+void printTreeLevelWise(TreeNode<int> *root)
+{
+    queue<TreeNode<int> *> pendingNodes;
+    pendingNodes.push(root);
 
+    while (!pendingNodes.empty())
+    {
+        TreeNode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        cout << front->data << ":";
+        for (int i = 0; i < front->children.size(); i++)
+        {
+            TreeNode<int> *currentNode = front->children[i];
+            pendingNodes.push(currentNode);
+            if (i + 1 == front->children.size())
+            {
+                cout << currentNode->data;
+            }
+            else
+            {
+                cout << currentNode->data << ",";
+            }
+        }
+        cout << endl;
+    }
+}
 TreeNode<int> *takeInput()
 {
     // ! Taking input the tough way (Recurive) DFS
