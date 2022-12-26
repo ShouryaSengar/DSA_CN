@@ -2,9 +2,40 @@
 #include "TreeNode.h"
 using namespace std;
 
+TreeNode<int> *takeInputLevelWise() // Easy for user to pass input
+{
+    // Using Queue
+    int rootData;
+    cout << "Enter root data :)" << endl;
+    cin >> rootData;
+    TreeNode<int> *root = new TreeNode<int>(rootData);
+
+    queue<TreeNode<int> *> pendingNodes;
+
+    pendingNodes.push(root);
+    while (!pendingNodes.empty())
+    {
+        TreeNode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        cout << "Enter number of cildren of " << front->data << endl;
+        int numChild;
+        cin >> numChild;
+        for (int i = 0; i < numChild; i++)
+        {
+            int childData;
+            cout << "Enter " << i << "th child of " << front->data << endl;
+            cin >> childData;
+            TreeNode<int> *child = new TreeNode<int>(childData); // We wan't the node to be survie
+            front->children.push_back(child);
+            pendingNodes.push(child);
+        }
+    }
+    return root;
+}
+
 TreeNode<int> *takeInput()
 {
-    // ! Taking input the tough way (Recurive)
+    // ! Taking input the tough way (Recurive) DFS
     int rootData;
     cout << "Enter data :)" << endl;
     cin >> rootData;
@@ -51,7 +82,8 @@ int main()
     // TreeNode<int> *child2 = new TreeNode<int>(3);
     // root->children.push_back(child1);
     // root->children.push_back(child2);
-    TreeNode<int> *root = takeInput();
+    // TreeNode<int> *root = takeInput();
+    TreeNode<int> *root = takeInputLevelWise();
     printTree(root);
     // TODO: delete the tree
 }
