@@ -102,12 +102,33 @@ void printTree(TreeNode<int> *root)
 
 int numNodes(TreeNode<int> *root)
 {
+    if (root == NULL)
+    {
+        return;
+    }
     int ans = 1;
     for (int i = 0; i < root->children.size(); i++)
     {
         ans += numNodes(root->children[i]);
     }
     return ans;
+}
+
+void printAtLevelK(TreeNode<int> *root, int k)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    if (k == 0)
+    {
+        cout << root->data << " ";
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        printAtLevelK(root->children[i], k - 1);
+    }
 }
 
 int main()
@@ -120,5 +141,9 @@ int main()
     // TreeNode<int> *root = takeInput();
     TreeNode<int> *root = takeInputLevelWise();
     printTree(root);
+    int k;
+    cin >> k;
+    cout << "Level " << k << " elements : ";
+    printAtLevelK(root, k);
     // TODO: delete the tree
 }
