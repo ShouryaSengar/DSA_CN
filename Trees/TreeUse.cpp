@@ -161,6 +161,21 @@ void postOrder(TreeNode<int> *root)
 void inOrder(TreeNode<int> *root)
 {
 }
+
+/*
+Deleting a Tree methods:
+1. by postOrder recursive traversal
+2. by calling destructor
+*/
+void deleteTree(TreeNode<int> *root)
+{
+    // Similar to PostOrder
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        deleteTree(root->children[i]);
+    }
+    delete root;
+}
 // 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 int main()
 {
@@ -222,4 +237,6 @@ int main()
     }
 
     // TODO: delete the tree
+    // deleteTree(root);
+    delete root; // by destructor
 }
