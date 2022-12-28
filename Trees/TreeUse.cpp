@@ -104,7 +104,7 @@ int numNodes(TreeNode<int> *root)
 {
     if (root == NULL)
     {
-        return;
+        return 0;
     }
     int ans = 1;
     for (int i = 0; i < root->children.size(); i++)
@@ -131,6 +131,17 @@ void printAtLevelK(TreeNode<int> *root, int k)
     }
 }
 
+/*TREE TRAVERSAL'S*/
+void preOrder(TreeNode<int> *root)
+{
+}
+void postOrder(TreeNode<int> *root)
+{
+}
+void inOrder(TreeNode<int> *root)
+{
+}
+// 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 int main()
 {
     // TreeNode<int> *root = new TreeNode<int>(1);
@@ -141,9 +152,54 @@ int main()
     // TreeNode<int> *root = takeInput();
     TreeNode<int> *root = takeInputLevelWise();
     printTree(root);
+    cout << "Number of nodes: " << numNodes(root) << endl;
     int k;
     cin >> k;
     cout << "Level " << k << " elements : ";
     printAtLevelK(root, k);
+    cout << endl;
+
+    bool exit = 0;
+    while (!exit)
+    {
+        cout << "\nSelect the following TREE TRAVERSAL method's : "
+             << "\n1. Preorder traversal"
+             << "\n2. Postorder traversal"
+             << "\n3. Inorder traversal"
+             << "\n4. Exit" << endl;
+        int option;
+        cin >> option;
+        switch (option)
+        {
+        case 1:
+            cout << "PreOrder : ";
+            preOrder(root);
+            cout << endl;
+            break;
+
+        case 2:
+            cout << "PostOrder : ";
+            postOrder(root);
+            cout << endl;
+            break;
+
+        case 3:
+            cout << "InOrder : ";
+            inOrder(root);
+            cout << endl;
+            break;
+
+        case 4:
+            exit = 1;
+            cout << endl;
+            break;
+
+        default:
+            cout << "INVALID INPUT";
+            cout << endl;
+            break;
+        }
+    }
+
     // TODO: delete the tree
 }
