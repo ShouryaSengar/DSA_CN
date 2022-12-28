@@ -147,6 +147,16 @@ void preOrder(TreeNode<int> *root)
 }
 void postOrder(TreeNode<int> *root)
 {
+    // LEFT -> RIGHT -> ROOT
+    if (root == NULL)
+    {
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postOrder(root->children[i]);
+    }
+    cout << root->data << " ";
 }
 void inOrder(TreeNode<int> *root)
 {
