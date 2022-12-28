@@ -134,6 +134,16 @@ void printAtLevelK(TreeNode<int> *root, int k)
 /*TREE TRAVERSAL'S*/
 void preOrder(TreeNode<int> *root)
 {
+    // ROOT -> LEFT -> RIGHT
+    if (root == NULL)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preOrder(root->children[i]);
+    }
 }
 void postOrder(TreeNode<int> *root)
 {
