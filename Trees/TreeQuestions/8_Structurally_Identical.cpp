@@ -70,22 +70,21 @@ TreeNode<int> *takeInputLevelWise()
 bool areIdentical(TreeNode<int> *root1, TreeNode<int> *root2)
 {
     // Write your code here
-    if (root1 == NULL and root2 == NULL)
+    if (root1 == NULL && root2 == NULL)
     {
         return true;
     }
-
-    if ((root1 == NULL or root2 == NULL) or root1->children.size() != root2->children.size())
+    else if (root1 == NULL || root2 == NULL)
+    {
+        return false;
+    }
+    else if ((root1->data != root2->data) || root1->children.size() != root2->children.size())
     {
         return false;
     }
     else if (root1->data == root2->data)
     {
         return true;
-    }
-    else if (root1->data != root2->data)
-    {
-        return false;
     }
     else
     {
