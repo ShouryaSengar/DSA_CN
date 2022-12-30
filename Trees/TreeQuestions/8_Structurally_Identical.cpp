@@ -82,16 +82,22 @@ bool areIdentical(TreeNode<int> *root1, TreeNode<int> *root2)
     {
         return false;
     }
-    else if (root1->data == root2->data)
-    {
-        return true;
-    }
+    /*CANNOT do this, becuse there will be cases in which rest of child are not identical*/
+    // else if (root1->data == root2->data)
+    // {
+    //     return true;
+    // }
     else
     {
         for (int i = 0; i < root1->children.size(); i++)
         {
-            return areIdentical(root1->children[i], root2->children[i]);
+            bool ans = areIdentical(root1->children[i], root2->children[i]);
+            if (!ans)
+            {
+                return false;
+            }
         }
+        return true;
     }
 }
 
