@@ -111,6 +111,20 @@ void printTree(BinaryTreeNode<int> *root)
     printTree(root->left);
     printTree(root->right);
 }
+
+int numNodes(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1 + numNodes(root->left) + numNodes(root->right);
+    }
+}
+
+// Test: 1 2 3 4 5 6 7 -1 -1 -1 -1 8 9 -1 -1 -1 -1 -1 -1
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -121,5 +135,6 @@ int main()
     // BinaryTreeNode<int> *root = takeInput();
     BinaryTreeNode<int> *root = takeInputLevelWise();
     printTree(root);
+    cout << "Nums: " << numNodes(root) << endl;
     delete root;
 }
