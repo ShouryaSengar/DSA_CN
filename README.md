@@ -1,2 +1,2 @@
 # DSA
- Basic implementation of various data structures
+ Implementation of various data structures with popular questions form Coding Ninja DSA standard course
