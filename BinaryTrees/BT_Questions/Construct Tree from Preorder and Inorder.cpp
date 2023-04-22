@@ -103,8 +103,65 @@ void printLevelATNewLine(BinaryTreeNode<int> *root) {
     }
 }
 
+/*
+    Logic:
+    1. In preOrder (Root) -> (leftSuBTree) -> (rightSubTree),
+       i.e firstElement will be root
+    2. In inOrder (leftSuBTree) -> (Root) -> (rightSubTree),
+       i.e Need to Find root in inOrder
+    3. Now we can calculate the start and end point of leftSubTree and
+       rightSubTree in both inOrder and preOrder Traveral.
+*/
+BinaryTreeNode<int>* helper(int *preorder, int preStart, int preEnd, int *inorder, int inStart, int inEnd)
+{
+    // Check if either the pre-order or in-order traversal range is empty
+    if (preStart > preEnd or inStart > inEnd)
+    {
+        return NULL; //indicate that the current subtree is empty
+    }
+
+    BinaryTreeNode<int> *root = new BinaryTreeNode<int>(preorder[preStart]);
+
+    // Find the index of the root node in the in-order traversal array
+    int inRootINDEX = 0;
+    for (int i = inStart; i <= inEnd; ++i)
+    {
+        if (inorder[i] == root->data)
+        {
+            inRootINDEX = i;
+            break;
+        }
+    }
+    int lps = preStart + 1;         //left(Pre-Order)Start
+    int lis = inStart;              //left(In-Order)Start
+    int lie = inRootINDEX - 1;      //left(In-Order)End
+    //No. of node in in range of Inorder and preoreder will be same
+    int lpe = (lie - lis) + lps;    //left(Pre-Order)End
+
+    int ris = inRootINDEX + 1;      //right(In-Order)Start
+    int rie = inEnd;                //right(In-Order)End
+    int rpe = preEnd;               //right(Pre-Order)End
+    int rps = lpe + 1;              //right(Pre-Order)Start
+
+    BinaryTreeNode<int> *leftChild = helper(preorder, lps, lpe, inorder, lis, lie);
+    BinaryTreeNode<int> *rightChild = helper(preorder, rps, rpe, inorder, ris, rie);
+    root->left = leftChild;
+    root->right = rightChild;
+
+    return root;
+}
+/*
+    Intuition:
+    To use the pre-order traversal to identify the root node of the current subtree and,
+    Then use the in-order traversal to find the left and right subtrees of the root node.
+*/
 BinaryTreeNode<int>* buildTree(int *preorder, int preLength, int *inorder, int inLength) {
     // Write your code here
+    int preStart = 0;
+    int preEnd = preLength - 1;
+    int inStart = 0;
+    int inEnd = inLength - 1;
+    return helper(preorder, preStart, preEnd, inorder, inStart, inEnd);
 }
 
 int main() {
