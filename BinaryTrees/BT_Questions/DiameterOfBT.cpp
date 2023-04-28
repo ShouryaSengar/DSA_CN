@@ -2,8 +2,7 @@
     Yor are given a BT. You are supposed to return the Diameter of the BT.
     i.e. the length of the longest path between ant two end nodes in a tree.
 */
-#include <iostream>
-#include <queue>
+#innclude <bits/stdc++.h>
 using namespace std;
 
 template <typename T>
@@ -66,7 +65,8 @@ int height(BinaryTreeNode<int> *root)
 
 int diameterOfBinaryTree(TreeNode<int> *root)
 {
-	// Write Your Code Here.
+    // Recursive Approach O(n^2)
+    // Bcoz we r calling height of BT every time along with daimeterOfBinaryTree
     if(root == NULL)
     {
         return 0;
@@ -79,7 +79,34 @@ int diameterOfBinaryTree(TreeNode<int> *root)
     return max(opt1, max(opt2, opt3));
 }
 
+//But if we retunr height and diameter together then O(n) complexity
+pair<int, int> heightDiameter(BinaryTreeNode<int>* root) {
+    if(root == NULL)
+    {
+        pair<int, int> p;
+        p.first = 0;
+        p.second = 0;
+        return p;
+    }
+    pair<int, int> leftAns = heightDiameter(root->left);
+    pair<int, int> rightAns = heightDiameter(root->right);
+    int lh = leftAns.first;
+    int ld = leftAns.second;
+    int rh = rightAns.first;
+    int rd = rightAns.second;
+
+    int height = 1 + max(lh, rh);
+    int diameter = max(lh+rh, max(ld, rd));
+
+    pair<int,int> p;
+    p.first = height;
+    p.second = diameter;
+    return p;
+}
+
 int main() {
     BinaryTreeNode<int>* root = takeInput();
     cout << diameterOfBinaryTree(root) << endl;
+    pair<int, int> p = heightDiameter(root);
+    cout << "Height of BT: "<< p.first << " "<< "\nDiameter of BT: "<< p.second << endl;
 }
