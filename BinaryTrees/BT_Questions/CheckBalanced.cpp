@@ -89,7 +89,9 @@ bool isBalanced(BinaryTreeNode<int> *root) {
 	{
 		return true;
 	}
-	return abs(height(root->left) - height(root->right)) <= 1;
+	bool leftAns = isBalanced(root->left);
+	bool rightAns =  isBalanced(root->right);
+	return abs(height(root->left) - height(root->right)) <= 1 and leftAns and rightAns;
 }
 
 int main() {
