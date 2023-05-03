@@ -71,6 +71,9 @@ following conditions must be met:
 1. The left and right subtrees must be balanced.
 2. |hL - hR| <= 1, where hL is the height or depth of left subtree and hR is the height or depth of right subtree. 
 */
+
+/*
+O(n*n)
 int height(BinaryTreeNode<int> *root)
 {
 	if (root == NULL)
@@ -84,7 +87,7 @@ int height(BinaryTreeNode<int> *root)
 }
 
 bool isBalanced(BinaryTreeNode<int> *root) {
-	// Write your code here
+	
 	if (root == NULL)
 	{
 		return true;
@@ -92,6 +95,40 @@ bool isBalanced(BinaryTreeNode<int> *root) {
 	bool leftAns = isBalanced(root->left);
 	bool rightAns =  isBalanced(root->right);
 	return abs(height(root->left) - height(root->right)) <= 1 and leftAns and rightAns;
+}
+*/
+
+pair<int, bool> isBalancedFaster(BinaryTreeNode<int> *root) {
+	//  O(n)
+	if (root == NULL)
+	{
+		pair<int, bool> p;
+		p.first = 0;
+		p.second = true;
+		return p;
+	}
+	pair<int, bool> leftAns = isBalancedFaster(root->left);
+	pair<int, bool> rightAns = isBalancedFaster(root->right);
+	int lh = leftAns.first;
+	int rh = rightAns.first;
+
+	int height = 1 + max(lh, rh);
+	bool ans = abs(lh - rh) <= 1;
+
+	pair<int, bool> p;
+	p.first = height;
+	p.second = ans;
+	return p;
+}
+
+
+bool isBalanced(BinaryTreeNode<int> *root) {
+	// Write your code here
+	if (root == NULL)
+	{
+		return true;
+	}
+	return isBalancedFaster(root).second;
 }
 
 int main() {
