@@ -78,7 +78,29 @@ BinaryTreeNode<int>* takeInput() {
 }
 
 void printLevelWise(BinaryTreeNode<int> *root) {
-    // Write your code here
+	// Write your code here
+	if (root == NULL)
+	{
+		return;
+	}
+
+	queue<BinaryTreeNode<int> *> q;
+	q.push(root);
+
+	while (!q.empty()) {
+		int size = q.size();
+		while (size--) {
+			BinaryTreeNode<int> *temp = q.front();
+			q.pop();
+			if (temp->left != NULL)
+				q.push(temp->left);
+			if (temp->right != NULL)
+				q.push(temp->right);
+
+			cout << temp->data << " ";
+		}
+		cout << endl;
+	}
 }
 
 int main() {
